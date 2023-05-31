@@ -12,6 +12,7 @@ const initialState = {
     name: "",
     type: "",
     element: "",
+    specie: "",
     height: "",
     age: "",
   },

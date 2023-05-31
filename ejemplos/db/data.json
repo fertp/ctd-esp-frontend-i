@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "id": "620e7090-fff4-11ed-8139-fb8a85ed5207",
+      "name": "Hacer informe",
+      "completed": false
+    },
+    {
+      "id": "d0e77a2a-6b77-4fa2-9280-994a785f4225",
+      "name": "Pedir insumos",
+      "completed": false
+    },
+    {
+      "id": "f89b9ac4-79b1-4d99-b074-95755cc258a5",
+      "name": "Visitar clientes",
+      "completed": false
+    },
+    {
+      "id": "ad69df10-0004-11ee-8ae8-7fd232723dc4",
+      "name": "Responder correos",
+      "completed": false
+    },
+    {
+      "id": "d10e8410-0005-11ee-acdc-51bf9c8d5439",
+      "name": "Alimentar al gato",
+      "completed": false
+    }
+  ]
+}

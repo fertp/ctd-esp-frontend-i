@@ -9,7 +9,7 @@ const Detalle = () => {
 
   const { mutate, isLoading, isError } = useMutation({
     mutationFn: (data) => savePokemonAdmission(data),
-    onMutate: (data) => {
+    onSuccess: async (data) => {
       alert("Formulario enviado");
       console.log(data);
     },
@@ -33,6 +33,7 @@ const Detalle = () => {
         <div className="fila">
           <p>Nombre: {pokemon.name}</p>
           <p>Tipo: {pokemon.type}</p>
+          <p>Especie: {pokemon.speciez}</p>
           <p>Elemento: {pokemon.element}</p>
           <p>Altura: {pokemon.height}</p>
           <p>Edad: {pokemon.age}</p>

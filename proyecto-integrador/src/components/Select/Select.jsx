@@ -1,12 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
-import { getPokemonTypes } from "../../services/api";
 
-const Select = ({ name, label, onBlur }) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["pokemon-types"],
-    queryFn: getPokemonTypes,
-  });
+const Select = ({ name, label, disabled, options, onBlur }) => {
+  // const { data, isLoading, isError } = useQuery({
+  //   queryKey: ["pokemon-types"],
+  //   queryFn: getPokemonTypes,
+  // });
 
   const handleInputChange = (e) => {
     onBlur(e);
@@ -21,11 +19,11 @@ const Select = ({ name, label, onBlur }) => {
         id={name}
         onChange={handleInputChange}
         // onBlur={onBlur}
-        disabled={isError || isLoading}
+        disabled={disabled}
       >
-        {data?.results?.map((type) => (
-          <option key={type.name} value={type.name}>
-            {type.name}
+        {options?.map((type) => (
+          <option key={type} value={type}>
+            {type}
           </option>
         ))}
       </select>
@@ -38,5 +36,7 @@ export default Select;
 Select.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
+  disabled: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.string),
   onBlur: PropTypes.func,
 };

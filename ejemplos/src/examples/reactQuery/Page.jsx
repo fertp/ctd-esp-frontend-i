@@ -7,9 +7,11 @@ const queryClient = new QueryClient()
 export const ReactQueryPage = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className='App'>
-        <h1>¡Rick & Morty!</h1>
-        <List />
+      <div className='react-query-example'>
+        <div className='App'>
+          <h1>¡Rick & Morty!</h1>
+          <List />
+        </div>
       </div>
     </QueryClientProvider>
   )
