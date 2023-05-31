@@ -6,13 +6,27 @@ import Input from "../Input/Input";
 import Detalle from "./Detalle";
 import { useAdmissionContext } from "../../context";
 import Select from "../Select/Select";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getPokemonSpeciesNames,
+  getPokemonTypesNames,
+} from "../../services/api";
 
 const Formulario = () => {
   const { dispatcher } = useAdmissionContext();
 
+  const pokemonTypesQuery = useQuery({
+    queryKey: ["pokemon-types"],
+    queryFn: getPokemonTypesNames,
+  });
+
+  const pokemonSpeciesQuery = useQuery({
+    queryKey: ["pokemon-types"],
+    queryFn: getPokemonSpeciesNames,
+  });
+
   const handleMasterInputBlur = (e) => {
     const { name, value } = e.target;
-    console.log({ name, value });
     dispatcher.updateMasterField({ name, value });
   };
 
@@ -77,6 +91,19 @@ const Formulario = () => {
                 name="type"
                 label="Tipo"
                 onBlur={handlePokemonInputBlur}
+                disabled={
+                  pokemonTypesQuery.isError || pokemonTypesQuery.isLoading
+                }
+                options={pokemonTypesQuery.data ?? []}
+              />
+              <Select
+                name="specie"
+                label="Especie"
+                onBlur={handlePokemonInputBlur}
+                disabled={
+                  pokemonSpeciesQuery.isError || pokemonSpeciesQuery.isLoading
+                }
+                options={pokemonSpeciesQuery.data ?? []}
               />
               <Input
                 name="element"
