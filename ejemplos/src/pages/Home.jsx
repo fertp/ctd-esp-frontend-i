@@ -5,13 +5,16 @@ const styles = {
   main: {
     maxWidth: '960px',
     marginInline: 'auto'
+  },
+  title: {
+    color: 'black'
   }
 }
 
 export const Home = () => {
   return (
     <main style={styles.main}>
-      <h1>Ejemplos Esp. Frontend 2</h1>
+      <h1 style={styles.title}>Ejemplos Esp. Frontend 1</h1>
 
       <ul>
         {routes.map(({ name, path }) => (
