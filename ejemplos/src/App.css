@@ -6,3 +6,8 @@ html * {
 ul {
   list-style: none;
 }
+
+.container {
+  width: min(calc(100% - 60px), 960px);
+  margin-inline: auto;
+}
