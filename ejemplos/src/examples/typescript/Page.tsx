@@ -1,53 +1,51 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
-import { sum } from './utils'
+import { MouseEvent, useEffect, useState } from 'react'
+import { Character } from './interfaces'
+import { CharacterCard } from './components/CharacterCard'
 
-type Result = null | number
+interface Data {
+  info: Info
+  results: Character[]
+}
+
+interface Info {
+  count: number
+  next: string
+  pages: number
+  prev: number | null
+}
 
 export const TypescriptPage = () => {
-  const [values, setValues] = useState({
-    numA: '',
-    numB: ''
-  })
+  const [data, setData] = useState<Data>({} as Data)
+  const [page, setPage] = useState<number>(1)
 
-  const [result, setResult] = useState<Result>(null)
+  useEffect(() => {
+    fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+      .then(resp => resp.json())
+      // .then(data => console.log(data))
+      .then(data => setData(data))
+      .catch(error => console.log(error))
+  }, [page])
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValues(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-    setResult(null)
-  }
+  const characters = data?.results ?? []
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    const result: number = sum(Number(values.numA), Number(values.numB))
-    setResult(result)
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    setPage(prev => Math.min(prev + 1, data.info.pages))
   }
 
   return (
     <main className='container'>
-      <h1>Typescript</h1>
+      <h1>Characters</h1>
 
-      <br />
+      <ul>
+        {characters.map(c => (
+          <CharacterCard
+            key={c.id}
+            character={c}
+          />
+        ))}
+      </ul>
 
-      <form>
-        <input
-          type='text'
-          name='numA'
-          value={values.numA}
-          onChange={handleInputChange}
-        />
-        <input
-          type='text'
-          name='numB'
-          value={values.numB}
-          onChange={handleInputChange}
-        />
-        <button onClick={handleSubmit}>Sumar</button>
-      </form>
-
-      {result !== null && <p>El resultado es: {result}</p>}
+      <button onClick={handleClick}>next page</button>
     </main>
   )
 }
